@@ -15,15 +15,9 @@ const StyledList = () => {
 	const handleAddContact = () => {
 		setNewContact(true)
 	}
-	const finishAddingContact = (inputData) => {
-		let aux = []
-		contacts.forEach(contact => {
-			aux.push(contact)
-		})
-		aux.push(inputData)
-		setContacts(aux)
+	const finishAddingContact = async (inputData) => {
+		contacts.push(inputData)
 		setNewContact(false)
-		console.log(contacts)
 	}
 	
 	return (
@@ -38,7 +32,6 @@ const StyledList = () => {
 						onSave={ (inputData) => finishAddingContact(inputData) }
 						onCancel={ () => setNewContact(false) } />
 			}{
-				// NÃO ESTÁ RENDERIZANDO QUANDO UM CONTATO NOVO É SALVO
 				Contacts.map((contact) => {
 					return <ContactChip contact={ contact } />
 				}) 
