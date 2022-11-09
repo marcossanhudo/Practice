@@ -15,9 +15,11 @@ const StyledList = () => {
 	const handleAddContact = () => {
 		setNewContact(true)
 	}
-	const finishAddingContact = async (inputData) => {
+	const finishAddingContact = (inputData) => {
 		contacts.push(inputData)
 		setNewContact(false)
+	}
+	const handleEdit = (currentData) => {
 	}
 	
 	return (
@@ -26,18 +28,21 @@ const StyledList = () => {
 			<Button
 				onClick={ handleAddContact }
 				text={ "Add contact" } />
-			<div className="ContactList">{
-				newContact &&
-					<EditableContactChip
-						onSave={ (inputData) => finishAddingContact(inputData) }
-						onCancel={ () => setNewContact(false) } />
-			}{
-				Contacts.map((contact) => {
-					return <ContactChip
-							contact={ contact }
-							onEdit={ handleEdit() } />
-				}) 
-			}</div>
+			<div className="ContactList">
+				{
+					newContact &&
+						<EditableContactChip
+							onSave={ (inputData) => finishAddingContact(inputData) }
+							onCancel={ () => setNewContact(false) } />
+				}
+				{
+					Contacts.map((contact) => {
+						return <ContactChip
+								contact={ contact }
+								onEdit={ () => handleEdit(contact) } />
+					}) 
+				}
+			</div>
 		</div>
 	)
 }
