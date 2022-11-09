@@ -8,11 +8,16 @@ public class Statistician {
 
 	public static void parseArguments(String args[]){
 		for (String entry: args)
-			addToData(parse(entry));
+			pushToData(Double.parseDouble(entry));
 	}
 
-	public static parse(String check){
-		
+	public static boolean pushToData(double entry){
+		double[] aux = new double[data.length];
+		for (int index = 0; index < data.length; index++)
+			aux[index] = data[index];
+		aux[data.length] = entry;
+		data = aux;
+		return true;
 	}
 
 	public static double highest(){
