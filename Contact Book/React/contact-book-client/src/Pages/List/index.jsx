@@ -33,7 +33,9 @@ const StyledList = () => {
 						onCancel={ () => setNewContact(false) } />
 			}{
 				Contacts.map((contact) => {
-					return <ContactChip contact={ contact } />
+					return <ContactChip
+							contact={ contact }
+							onEdit={ handleEdit() } />
 				}) 
 			}</div>
 		</div>
