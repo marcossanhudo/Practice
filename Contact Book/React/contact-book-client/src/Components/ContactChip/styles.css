@@ -1,0 +1,19 @@
+.ContactChip {
+	background-color: #424242;
+	border-radius: 16px;
+	padding: 25px;
+	margin: 25px;
+}
+
+.ContactChip .Name {
+	font-weight: 600;
+	font-size: 1.5em;
+}
+
+.ContactChip .Phone .Number {
+	font-size: 1.1em;
+}
+
+.ContactChip .Phone .Tag {
+	font-size: 1em;
+}

@@ -1,0 +1,14 @@
+.List {
+	font-family: "Helvetica Neue", "Segoe UI", "Arial", "sans-serif";
+	--padding: 50px;
+	background-color: #202020;
+	padding: var(--padding);
+	color: #dedede;
+	width: calc(100% - 2*var(--padding));
+	height: calc(100% - 2*var(--padding));
+}
+
+.ContactList {
+	width: 80%;
+	padding: 25px 50px 25px 75px;
+}
