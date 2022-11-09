@@ -1,5 +1,3 @@
-package ContactBook;
-
 public class Contact {
 
 	// Variables
