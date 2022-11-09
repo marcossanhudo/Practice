@@ -1,10 +1,15 @@
 public class Statistician {
 
-	public static double[] data;
+	public static double[] data = new double[0];
 	public static boolean dataHasBeenSorted = false;
 
 	public static void main(String args[]){
 		parseArguments(args);
+		System.out.println("Amplitude: " + amplitude());
+		System.out.println("\tHighest: " + highest());
+		System.out.println("\tLowest: " + lowest());
+		System.out.println("Average: " + average());
+		System.out.println("Mean: " + mean());
 	}
 
 	public static void parseArguments(String args[]){
@@ -13,10 +18,12 @@ public class Statistician {
 	}
 
 	public static boolean pushToData(double entry){
-		double[] aux = new double[data.length];
-		for (int index = 0; index < data.length; index++)
-			aux[index] = data[index];
-		aux[data.length] = entry;
+		int dataLength = data.length;
+		double[] aux = new double[dataLength + 1];
+		if (dataLength > 0)
+			for (int index = 0; index < dataLength; index++)
+				aux[index] = data[index];
+		aux[dataLength] = entry;
 		data = aux;
 		return true;
 	}
@@ -59,26 +66,26 @@ public class Statistician {
 		return numerator / denominator;
 	}
 
-	public static double mode(){
+	/*public static double mode(){
 		return mode(data);
 	}
 	public static double mode(){
 	
-	}
+	}*/
 
 	public static double mean(){
 		return mean(data);
 	}
 	public static double mean(double[] set){
-		setLength = set.length;
-		if (setLength % 2 == 0)
+		int setLength = set.length;
+		if (setLength % 2 == 0){
 			double[] setMiddle = {set[setLength / 2], set[setLength / 2 + 1]};
 			return average(setMiddle);
-		else
+		} else
 			return set[setLength / 2];
 	}
 
-	public static double[] inAscending(){
+	/*public static double[] inAscending(){
 		
 	}
 	public static double[] inDescending(){
@@ -89,6 +96,6 @@ public class Statistician {
 	}
 	public static void sortDescending(){
 		data = inDescending();
-	}
+	}*/
 
 }
