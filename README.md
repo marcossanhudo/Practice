@@ -11,7 +11,7 @@ The software in this repository is made publicly available as a demonstration of
 This software includes dependencies created by third parties. Each dependency's copyrighted or trademarked material is someone else's intellectual property. Read and agree to their licenses and policies, if you wish to use this software.  
 On using this software, you also agree to take all responsibility for any impact your actions may have.
 
-## Português (Brazil)
+## Português (Brasil)
 ### Sobre
 Eu criei este repositório para que eu possa publicar trabalhos que provem, a potenciais empregadores, minhas habilidades como engenheiro de software. O área da qual eu mais gosto é a de UI/UX, e quero mostrar como sou capaz de projetar e construir aplicações que são boas em termos de número de utilidades, facilidade de uso, e estética. Engenhar software, porém, é mais do que desenvolver aplicações decentes, então aqui também é onde eu quero demonstrar minhas habilidades de planejar, projetar, e documentar meus trabalhos.  
 Você é mais do que bem-vindo a clonar este repositório e usar qualquer um destes apps. Você deveria poder escolher qual app quer manter, simplesmente fazendo o checkout da branch do app, ao invés de usar a `main`. Não esqueça-se de ler a documentação provida, para aprender a rodar o app corretamente. Não se esqueça, também, de ler os termos encontrados na subseção "Legal", e, com eles, concordar.
