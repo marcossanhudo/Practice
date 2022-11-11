@@ -30,6 +30,10 @@ const EditableContactChip = ({...props}) => {
 					<Button
 						text={ "Edit" }
 						onClick={ () => setEditing(true) } />
+
+					<Button
+						text={ "Delete" }
+						onClick={ () => props.onDelete } />
 				</div> : <div>
 					New contact
 					<Input id="name" label="Name" onChange={ (e) => setInputData({...inputData, name: e.target.value}) } />
