@@ -14,7 +14,10 @@ public class ContactBook {
 		Scanner globalScanner = new Scanner(System.in);
 		int language = chooseLanguage(globalScanner);
 		welcomeMessage(language);
-		menu(language, globalScanner);
+		int keepAppOpen = 1;
+		while (keepAppOpen != 0){
+			keepAppOpen = menu(language, globalScanner);
+		}
 	}
 
 	public static int chooseLanguage(Scanner globalScanner){
@@ -40,29 +43,21 @@ public class ContactBook {
 		System.out.println("Welcome.");
 		System.out.println("Today is " + LocalDate.now() + ".");
 		System.out.println("You have " + contacts.size() + " contacts saved.");
-		System.out.println();
 	}
 
-	public static void menu(int language, Scanner globalScanner){
-		int userInput = -1;
-		while (userInput != 0){
-			System.out.println("What would you like to do?");
-			System.out.println("0\tEnd the application");
-			System.out.println("1\tSee all my contacts");
-			System.out.println("2\tSearch for a contact");
-			System.out.println("3\tAdd a contact");
-			System.out.println("4\tDelete all my contacts");
-
-			userInput = globalScanner.nextInt();
-
-			switch (userInput){
-				case 0: break;
-				case 1: listContacts(language); break;
-				case 2: contactSearchInterface(language, globalScanner); break;
-				case 3: contactAdditionInterface(language, globalScanner); break;
-				case 4: allContactDeletionInterface(language, globalScanner); break;
-			}
+	public static int menu(int language, Scanner globalScanner){
+		String[] prompts = {"What would you like to do?"};
+		String[] options = {"End the application", "See all my contacts", "Search for a contact", "Add a contact", "Delete all contacts"};
+		System.out.println();
+		int option = numberMenu(prompts, options, globalScanner);
+		switch (option){
+			case 0: break;
+			case 1: listContacts(language); break;
+			case 2: contactSearchInterface(language, globalScanner); break;
+			case 3: contactAdditionInterface(language, globalScanner); break;
+			case 4: allContactDeletionInterface(language, globalScanner); break;
 		}
+		return option;
 	}
 
 	public static void findsContactsInLocalDirectory(){
@@ -165,9 +160,15 @@ public class ContactBook {
 			System.out.println(optionNumber + "\t" + options[optionNumber]);
 		}
 		try {
-			return option = globalScanner.nextInt();
+			option = globalScanner.nextInt();
+			if (option > -1 && option <= options.length)
+				return option;
+			else {
+				System.out.println("To pick an option, use that option's respective number, as listed on the command line.\nTo stop running the application, simply use the Ctrl + C shortcut.");
+				return numberMenu(prompts, options, globalScanner);
+			}
 		} catch (InputMismatchException e){
-			System.out.println("To pick an option, use that option's respective number, as listed on the command line.\tTo stop running the application, simply use the Ctrl + C shortcut.");
+			System.out.println("To pick an option, use that option's respective number, as listed on the command line.\nTo stop running the application, simply use the Ctrl + C shortcut.");
 			return numberMenu(prompts, options, globalScanner);
 		}
 	}
