@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 
 public class ContactBook {
 
@@ -134,7 +135,10 @@ public class ContactBook {
 
 
 	public static void allContactDeletionInterface(int language, Scanner globalScanner){
-		
+		String[] prompts = {"After deleting all contacts, you won't be able to recover them.\nDelete all contacts?"};
+		String[] options = {"No", "Yes"};
+		if (numberMenu(prompts, options, globalScanner) == 1)
+			deleteAllContacts();
 	}
 	public static boolean deleteAllContacts(){
 		contacts.clear();
@@ -151,5 +155,20 @@ public class ContactBook {
 	public static void contactDeletionInterface(int language, Scanner globalScanner){}
 	public static boolean deleteContact(){
 		return true;
+	}
+
+	public static int numberMenu(String[] prompts, String[] options, Scanner globalScanner){
+		int option = -1;
+		for (String prompt: prompts)
+			System.out.println(prompt);
+		for (int optionNumber = 0; optionNumber < options.length; optionNumber++){
+			System.out.println(optionNumber + "\t" + options[optionNumber]);
+		}
+		try {
+			return option = globalScanner.nextInt();
+		} catch (InputMismatchException e){
+			System.out.println("To pick an option, use that option's respective number, as listed on the command line.\tTo stop running the application, simply use the Ctrl + C shortcut.");
+			return numberMenu(prompts, options, globalScanner);
+		}
 	}
 }
