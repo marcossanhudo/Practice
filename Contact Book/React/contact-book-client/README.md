@@ -1,3 +1,23 @@
+English (United States) version first
+
+## English (United States)
+### Features to supply
+- Contact addition.
+- Contact listing.
+- Contact deletion.
+- Contact edition.
+- Contact search.
+### To do before 2022-11-20
+- Write documentation that explains, at the very least, how to run the application locally. Write it in, at least, English (United States) and Portuguese (Brazil).
+- Translate this file's contents to both Portuguese (Brazil) and French (France).
+- Remove this file's default contents.
+- Make contact editions be rendered immediately.
+- Make contact deletions be rendered immediately.
+### Currently working properly
+- Contact addition.
+- Contact edition logic (changes not rendered immediately).
+- Contact deletion logic (changes not rendered at all).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
