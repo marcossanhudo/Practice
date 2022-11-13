@@ -3,7 +3,9 @@ public class Statistician {
 	public static double[] data = new double[0];
 	public static boolean dataHasBeenSorted = false;
 
-	public static void main(String args[]){
+	public static void main(String args[]) throws Exception {
+		if (args.length == 0)
+			throw new Exception("Inform the numbers you want to analyse on the command line.");
 		parseArguments(args);
 		System.out.println("Amplitude: " + amplitude());
 		System.out.println("\tHighest: " + highest());
