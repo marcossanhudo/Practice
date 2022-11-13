@@ -1,4 +1,5 @@
-English (United States) version first
+English (United States) version first.  
+Versão portuguesa (Brasil) mais abaixo.
 
 ## English (United States)
 All dates and times are (and have always been) in Brasília Time (UTC -3h).
