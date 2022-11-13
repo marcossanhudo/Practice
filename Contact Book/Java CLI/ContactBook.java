@@ -50,6 +50,7 @@ public class ContactBook {
 		String[] options = {"End the application", "See all my contacts", "Search for a contact", "Add a contact", "Delete all contacts"};
 		System.out.println();
 		int option = numberMenu(prompts, options, globalScanner);
+		System.out.println();
 		switch (option){
 			case 0: break;
 			case 1: listContacts(language); break;
@@ -74,47 +75,70 @@ public class ContactBook {
 
 	
 	public static boolean listContacts(int language){
-		for (int index = 0; index < contacts.size(); index++)
-			System.out.println("[" + index + "] " + contacts.get(index).getName());
+		if (contacts.size() == 0)
+			System.out.println("Your contact list is empty."); 
+		else { 
+			System.out.println("Your saved contacts");
+			for (int index = 0; index < contacts.size(); index++)
+				System.out.println("[" + index + "] " + contacts.get(index).getName());
+		}
 		return true;
 	}
+
 	public static void contactAdditionInterface(int language, Scanner globalScanner){
-		System.out.println("Inform your new contact's name.");
-		String name = globalScanner.nextLine();
+		String[] prompts;
+		String[] options = {"No", "Yes"};
 
-		int option = -1;
+		System.out.println("What's your new contact's name?");
+		String name = globalScanner.next();
 
-		Phone[] phones = new Phone[1];
-		ArrayList<Phone> p = new ArrayList<>();
-		while (option < 0 || option > 1){
-			System.out.println("Would you like to add a phone?\n0\tNo\n1\tYes");
-			option = globalScanner.nextInt();
-			if (option == 1){
-				System.out.println("What's the number?");
-				String phoneNumber = globalScanner.nextLine();
-				System.out.println("Add a tag");
-				String tag = globalScanner.nextLine();
-				p.add(new Phone(phoneNumber, tag));
-			}	
+		ArrayList<Phone> phones = new ArrayList<>();
+		prompts = new String[]{"Would you like to add a phone?"};
+		while (numberMenu(prompts, options, globalScanner) == 1){
+			System.out.println("What's the number? Leave empty to cancel.");
+			String number = globalScanner.next();
+			if (number.equals(""))
+				break;
+			System.out.println("Add a tag (optional).");
+			String tag = globalScanner.next();
+			phones.add(new Phone(number, tag));
+		}
+		
+		ArrayList<Email> emails = new ArrayList<>();
+		prompts = new String[]{"Would you like to add an email?"};
+		while (numberMenu(prompts, options, globalScanner) == 1){
+			System.out.println("What's the address? Leave empty to cancel.");
+			String address = globalScanner.next();
+			if (address.equals(""))
+				break;
+			System.out.println("Add a tag (optional).");
+			String tag = globalScanner.next();
+			emails.add(new Email(address, tag));
 		}
 
-		System.out.println("Would you like to add an email?");
-		Email[] emails = new Email[0];
+		ArrayList<Place> places = new ArrayList<>();
+		prompts = new String[]{"Would you like to add a place?"};
+		while (numberMenu(prompts, options, globalScanner) == 1){
+			System.out.println("What's the address? Leave empty to cancel.");
+			String address = globalScanner.next();
+			if (address.equals(""))
+				break;
+			System.out.println("Add a tag (optional).");
+			String tag = globalScanner.next();
+			places.add(new Place(address, tag));
+		}
 
-		System.out.println("Would you like to add a place?");
-		Place[] places = new Place[0];
-		
 		if (addContact(name, phones, emails, places))
 			System.out.println("\nYour new contact was successfully added to your contact list.");
 		else
 			System.out.println("Something happened, and it was not possible to add your new contact to your contact list.");
 	}
-
-	public static boolean addContact(String name, Phone[] phones, Email[] emails, Place[] places){
+	public static boolean addContact(String name, ArrayList<Phone> phones, ArrayList<Email> emails, ArrayList<Place> places){
 		Contact newContact = new Contact(name);
 		newContact.setPhones(phones);
 		newContact.setEmails(emails);
 		newContact.setPlaces(places);
+		System.out.println("\n" + generateContactTicket(newContact));
 		return saveNewContact(newContact);
 		//return saveChanges();
 	}
@@ -152,6 +176,33 @@ public class ContactBook {
 		return true;
 	}
 
+	public static String generateContactTicket(Contact contact){
+		String output = "Contact ====================================================\n";
+
+		output += "Name \t" + contact.getName() + "\n";
+
+		if (contact.getPhones().size() > 0){
+			output += "Phones\n";
+			for (Phone phone: contact.getPhones())
+				output += "\t" + phone.getNumber() + "\t(" + phone.getTag() + ")\n";
+		} else output += "No registered phones\n";
+
+		if (contact.getEmails().size() > 0){
+			output += "Emails\n";
+			for (Email email: contact.getEmails())
+				output += "\t" + email.getAddress() + "\t(" + email.getTag() + ")\n";
+		} else output += "No registered emails\n";
+
+		if (contact.getPlaces().size() > 0){
+			output += "Places\n";
+			for (Place place: contact.getPlaces())
+				output += "\t" + place.getAddress() + "\t(" + place.getTag() + ")\n";
+		} else output += "No registered places\n";
+
+		output += "============================================================";
+
+		return output;
+	}
 	public static int numberMenu(String[] prompts, String[] options, Scanner globalScanner){
 		int option = -1;
 		for (String prompt: prompts)
