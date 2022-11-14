@@ -21,7 +21,7 @@ All dates and times are (and have always been) in Brasília Time (UTC -3h).
 - Write documentation that explains, at the very least, how to run the application locally. Write it in, at least, English (United States) and Portuguese (Brazil).
 - Translate this file's contents to both Portuguese (Brazil) and French (France).
 - Implement contact addition with Java classes. [Finished 2022-11-13]
-- Verify all contact listing with Java classes is working properly; correct it, if not.
+- Verify all contact listing with Java classes is working properly; correct it, if not. [Finished 2022-11-14]
 - Verify all contact deletion with Java classes is working properly; correct it, if not. [Finished 2022-11-13]
 - Implement contact deletion with Java classes.
 - Implement contact edition with Java classes.
@@ -48,7 +48,7 @@ Todas as datas e horários estão (e sempre estiveram) no Horário de Brasília 
 - Write documentation that explains, at the very least, how to run the application locally. Write it in, at least, English (United States) and Portuguese (Brazil).
 - Translate this file's contents to both Portuguese (Brazil) and French (France).
 - Implementar adição de contatos com classes do Java. [Finalizado 2022-11-13]
-- Verificar que a listagem, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver.
+- Verificar que a listagem, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-14]
 - Verificar que a deleção, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-13]
 - Implementar deleção de contatos com classes do Java.
 - Implementar edição de contatos com classes do Java.
