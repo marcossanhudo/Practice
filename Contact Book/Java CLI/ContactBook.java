@@ -46,14 +46,14 @@ public class ContactBook {
 	}
 
 	public static int menu(int language, Scanner globalScanner){
-		String[] prompts = {"What would you like to do?"};
+		String prompt = "What would you like to do?";
 		String[] options = {"End the application", "See all my contacts", "Search for a contact", "Add a contact", "Delete all contacts"};
 		System.out.println();
-		int option = numberMenu(prompts, options, globalScanner);
+		int option = numberMenu(prompt, options, globalScanner);
 		System.out.println();
 		switch (option){
 			case 0: break;
-			case 1: listContacts(language); break;
+			case 1: contactListingInterface(language, globalScanner); break;
 			case 2: contactSearchInterface(language, globalScanner); break;
 			case 3: contactAdditionInterface(language, globalScanner); break;
 			case 4: allContactDeletionInterface(language, globalScanner); break;
@@ -73,18 +73,53 @@ public class ContactBook {
 		}*/
 	}
 
-	
-	public static boolean listContacts(int language){
+	public static void contactListingInterface(int language, Scanner globalScanner){
+		int contactsListed = listContacts(language, 1);
+		if (contactsListed > 0) {
+			System.out.println();
+			System.out.println("[0] Exit listing");
+			System.out.println("[1 ~ 9] Pick a contact");
+			try {
+				int option = globalScanner.nextInt();
+				if (option == 0) return;
+				else contactViewingInterface(option - 1, language, globalScanner);
+			} catch (InputMismatchException e){
+				System.out.println("To pick an option, use that option's respective number, as listed on the command line.\nTo stop running the application, simply use the Ctrl + C shortcut.");
+			}
+		}
+		
+	}
+	public static int listContacts(int language){
+		return listContacts(language, 0);
+	}
+	public static int listContacts(int language, int offset){
 		if (contacts.size() == 0)
 			System.out.println("Your contact list is empty."); 
 		else { 
 			System.out.println("Your saved contacts");
 			for (int index = 0; index < contacts.size(); index++)
-				System.out.println("[" + index + "] " + contacts.get(index).getName());
+				System.out.println("[" + (index + offset) + "] " + contacts.get(index).getName());
 		}
-		return true;
+		return contacts.size();
 	}
+	public static void contactViewingInterface(int contactId, int language, Scanner globalScanner){
+		String prompt = "What would you like to do with this contact?";
+		String[] options = {"Nothing. Go back to listing.",
+					"Edit it.",
+					"Delete it."};
 
+		int option = -1;
+		while (option != 0){
+			System.out.println("\n" + generateContactTicket(contacts.get(contactId)) + "\n");
+
+			option = numberMenu(prompt, options, globalScanner);
+			switch (option){
+				case 0: return;
+				case 1: contactEditionInterface(contactId, language, globalScanner); break;
+				case 2: contactDeletionInterface(contactId, language, globalScanner); break;
+			}
+		}
+	}
 	public static void contactAdditionInterface(int language, Scanner globalScanner){
 		String[] prompts;
 		String[] options = {"No", "Yes"};
@@ -166,12 +201,12 @@ public class ContactBook {
 
 	public static void contactSearchInterface(int language, Scanner globalScanner){}
 
-	public static void contactEditionInterface(int language, Scanner globalScanner){}
+	public static void contactEditionInterface(int contactId, int language, Scanner globalScanner){}
 	public static boolean editContact(){
 		return true;
 	}
 
-	public static void contactDeletionInterface(int language, Scanner globalScanner){}
+	public static void contactDeletionInterface(int contactId, int language, Scanner globalScanner){}
 	public static boolean deleteContact(){
 		return true;
 	}
@@ -202,6 +237,12 @@ public class ContactBook {
 		output += "============================================================";
 
 		return output;
+	}
+
+	// Generates menus
+	public static int numberMenu(String prompt, String options[], Scanner globalScanner){
+		String[] promptArray = {prompt};
+		return numberMenu(promptArray, options, globalScanner);
 	}
 	public static int numberMenu(String[] prompts, String[] options, Scanner globalScanner){
 		int option = -1;
