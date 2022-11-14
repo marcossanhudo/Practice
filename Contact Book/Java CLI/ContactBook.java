@@ -4,10 +4,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
+import java.util.HashMap;
 
 public class ContactBook {
 
-	public static ArrayList<Contact> contacts = new ArrayList<>();
+	public static HashMap<Integer, Contact> contacts = new HashMap<>();
 	public static File contactListFile;
 
 	public static void main(String[] args){
@@ -98,7 +99,8 @@ public class ContactBook {
 		else { 
 			System.out.println("Your saved contacts");
 			for (int index = 0; index < contacts.size(); index++)
-				System.out.println("[" + (index + offset) + "] " + contacts.get(index).getName());
+				if (contacts.containsKey(index))
+					System.out.println("[" + (index + offset) + "] " + contacts.get(index).getName());
 		}
 		return contacts.size();
 	}
@@ -109,8 +111,8 @@ public class ContactBook {
 					"Delete it."};
 
 		int option = -1;
-		while (option != 0){
-			System.out.println("\n" + generateContactTicket(contacts.get(contactId)) + "\n");
+		while (option != 0 && option != 2){
+			System.out.println("\n" + generateContactTicket(contactId) + "\n");
 
 			option = numberMenu(prompt, options, globalScanner);
 			switch (option){
@@ -180,37 +182,60 @@ public class ContactBook {
 	public static boolean saveNewContact(Contact newContact){
 		try {
 			//file.write(newContact);
-			contacts.add(newContact);
+			contacts.put(contacts.size(), newContact);
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
+	public static void contactSearchInterface(int language, Scanner globalScanner){}
+
+	public static void contactEditionInterface(int contactId, int language, Scanner globalScanner){
+		String prompt = "What would you like to edit?";
+		String options[] = {"Nothing. Go back.",
+					"Phones",
+					"Emails",
+					"Places"};
+		numberMenu(prompt, options, globalScanner);
+	}
+	public static boolean editContact(int contactId){
+		Contact contactInEdition = contacts.get(contactId);
+		contacts.put(contactId, contactInEdition);
+		return true;
+	}
+
+	public static void contactDeletionInterface(int contactId, int language, Scanner globalScanner){
+		String[] prompts = {"After deleting this contact, you won't be able to recover it.", generateContactTicket(contactId), "\nDelete this contact?"};
+		String[] options = {"No", "Yes"};
+		System.out.println();
+		if (numberMenu(prompts, options, globalScanner) == 1)
+			if (deleteContact(contactId))
+				System.out.println("\nYour contact has been successfully deleted.");
+			else
+				System.out.println("\nSomething wrong happened, and it was not possible to delete that contact from your contact list.");
+	}
+	public static boolean deleteContact(int contactId){
+		contacts.remove(contactId);
+		return true;
+	}
 
 	public static void allContactDeletionInterface(int language, Scanner globalScanner){
-		String[] prompts = {"After deleting all contacts, you won't be able to recover them.\nDelete all contacts?"};
+		String[] prompts = {"After deleting all contacts, you won't be able to recover them.", "Delete all contacts?"};
 		String[] options = {"No", "Yes"};
-		if (numberMenu(prompts, options, globalScanner) == 1)
-			deleteAllContacts();
+		if (deleteAllContacts())
+			System.out.println("All your contacts have been successfully deleted.");
+		else
+			System.out.println("Something wrong happened, and it was not possible to clear your contact list.");
 	}
 	public static boolean deleteAllContacts(){
 		contacts.clear();
 		return true;
 	}
 
-	public static void contactSearchInterface(int language, Scanner globalScanner){}
-
-	public static void contactEditionInterface(int contactId, int language, Scanner globalScanner){}
-	public static boolean editContact(){
-		return true;
+	public static String generateContactTicket(int contactId){
+		return generateContactTicket(contacts.get(contactId));
 	}
-
-	public static void contactDeletionInterface(int contactId, int language, Scanner globalScanner){}
-	public static boolean deleteContact(){
-		return true;
-	}
-
 	public static String generateContactTicket(Contact contact){
 		String output = "Contact ====================================================\n";
 
