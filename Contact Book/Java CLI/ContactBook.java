@@ -130,45 +130,41 @@ public class ContactBook {
 		String name = globalScanner.next();
 
 		ArrayList<Phone> phones = new ArrayList<>();
-		prompts = new String[]{"Would you like to add a phone?"};
-		while (numberMenu(prompts, options, globalScanner) == 1){
-			System.out.println("What's the number? Leave empty to cancel.");
-			String number = globalScanner.next();
-			if (number.equals(""))
-				break;
-			System.out.println("Add a tag (optional).");
-			String tag = globalScanner.next();
-			phones.add(new Phone(number, tag));
-		}
+		infoAdditionInterface("Would you like to add a phone?", "What's the number?", language, globalScanner)
+			.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
 		
 		ArrayList<Email> emails = new ArrayList<>();
-		prompts = new String[]{"Would you like to add an email?"};
-		while (numberMenu(prompts, options, globalScanner) == 1){
-			System.out.println("What's the address? Leave empty to cancel.");
-			String address = globalScanner.next();
-			if (address.equals(""))
-				break;
-			System.out.println("Add a tag (optional).");
-			String tag = globalScanner.next();
-			emails.add(new Email(address, tag));
-		}
-
+		infoAdditionInterface("Would you like to add an email?", "What's the address?", language, globalScanner)
+			.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
+		
 		ArrayList<Place> places = new ArrayList<>();
-		prompts = new String[]{"Would you like to add a place?"};
-		while (numberMenu(prompts, options, globalScanner) == 1){
-			System.out.println("What's the address? Leave empty to cancel.");
-			String address = globalScanner.next();
-			if (address.equals(""))
-				break;
-			System.out.println("Add a tag (optional).");
-			String tag = globalScanner.next();
-			places.add(new Place(address, tag));
-		}
+		infoAdditionInterface("Would you like to add a place?", "What's the address?", language, globalScanner)
+			.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
 
 		if (addContact(name, phones, emails, places))
 			System.out.println("\nYour new contact was successfully added to your contact list.");
 		else
 			System.out.println("Something happened, and it was not possible to add your new contact to your contact list.");
+	}
+	public static ArrayList<Info> infoAdditionInterface(String numberMenuPrompt, String whatsTheData, int language, Scanner globalScanner){
+		ArrayList<Info> info = new ArrayList<>();
+		String[] options = {"No.", "Yes."};
+		while (numberMenu(numberMenuPrompt, options, globalScanner) == 1){
+			System.out.println(whatsTheData);
+			String data = globalScanner.next();
+			if (data.equals(""))
+				break;
+			System.out.println("Add a tag (optional).");
+			String tag = globalScanner.next();
+			info.add(new Info(data, tag));
+		}
+		return info;
+	}
+	public static ArrayList<Info> infoEditionInterface(ArrayList<Info> infos, int language, Scanner globalScanner){
+		return infos;
+	}
+	public static ArrayList<Info> infoDeletionInterface(ArrayList<Info> infos, int language, Scanner globalScanner){
+		return infos;
 	}
 	public static boolean addContact(String name, ArrayList<Phone> phones, ArrayList<Email> emails, ArrayList<Place> places){
 		Contact newContact = new Contact(name);
@@ -197,7 +193,33 @@ public class ContactBook {
 					"Phones",
 					"Emails",
 					"Places"};
-		numberMenu(prompt, options, globalScanner);
+		int editing = numberMenu(prompt, options, globalScanner);
+		switch (editing){
+			case 0: return;
+			case 1: contactPhoneEditionInterface(contactId, language, globalScanner); break;
+			case 2: contactEmailEditionInterface(contactId, language, globalScanner); break;
+			case 3: contactPlaceEditionInterface(contactId, language, globalScanner); break;
+		}
+	}
+	public static void contactPhoneEditionInterface(int contactId, int language, Scanner globalScanner){
+		Contact contact = contacts.get(contactId);
+		String options[] = {"Nothing. Go back.",
+					"Add phones.",
+					"Remove phones.",
+					"Edit phones."};
+		int choice = numberMenu(new String[]{}, options, globalScanner);
+		switch (choice){
+			case 0: return;
+			/*case 1: contact.setPhones(contact.getPhones().addAll(infoAdditionInterface(language, globalScanner))); break;
+			case 2:	contact.setPhones(contact.getPhones()); break;
+			case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+		}
+	}
+	public static void contactEmailEditionInterface(int contactId, int language, Scanner globalScanner){
+
+	}
+	public static void contactPlaceEditionInterface(int contactId, int language, Scanner globalScanner){
+		
 	}
 	public static boolean editContact(int contactId){
 		Contact contactInEdition = contacts.get(contactId);
