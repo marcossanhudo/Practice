@@ -23,7 +23,7 @@ All dates and times are (and have always been) in Brasília Time (UTC -3h).
 - Implement contact addition with Java classes. [Finished 2022-11-13]
 - Verify all contact listing with Java classes is working properly; correct it, if not. [Finished 2022-11-14]
 - Verify all contact deletion with Java classes is working properly; correct it, if not. [Finished 2022-11-13]
-- Implement contact deletion with Java classes.
+- Implement contact deletion with Java classes. [Finished 2022-11-14]
 - Implement contact edition with Java classes.
 ### Currently working properly
 - All contact deletion with Java classes. [Verified 2022-11-13]
@@ -50,8 +50,10 @@ Todas as datas e horários estão (e sempre estiveram) no Horário de Brasília 
 - Implementar adição de contatos com classes do Java. [Finalizado 2022-11-13]
 - Verificar que a listagem, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-14]
 - Verificar que a deleção, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-13]
-- Implementar deleção de contatos com classes do Java.
+- Implementar deleção de contatos com classes do Java. [Finalizado 2022-11-14]
 - Implementar edição de contatos com classes do Java.
 ### Atualmente funcionando corretamente
-- Deleção, com classes do Java, de todos os contatos. [Verified 2022-11-13]
-- Adição de contatos com classes do Java. [Since 2022-11-13]
+- Deleção, com classes do Java, de todos os contatos. [Verificado 2022-11-13. Refeito 2022-11-14]
+- Adição de contatos com classes do Java. [Desde 2022-11-13]
+- Listagem, com classes do Java, de todos os contatos. [Desde 2022-11-14]
+- Deleção, com classes do Java, de contatos individuais [Desde 2022-11-14]
