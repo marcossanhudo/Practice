@@ -2,7 +2,7 @@ English (United States) version first.
 Versão portuguesa (Brasil) mais abaixo.
 
 ## English (United States)
-All dates and times are (and have always been) in Brasília Time (UTC -3h).
+All dates and times are (and have always been) in Brasília Time (UTC -3h), and in the format year-month-day.
 ### Features to supply
 #### Contacts should be handled as Java classes, and stored in plain text files.
 - Contact addition.
@@ -29,7 +29,7 @@ All dates and times are (and have always been) in Brasília Time (UTC -3h).
 - All contact deletion with Java classes. [Verified 2022-11-13]
 - Contact addition with Java classes. [Since 2022-11-13]
 ## Português (Brasil)
-Todas as datas e horários estão (e sempre estiveram) no Horário de Brasília (UTC -3h).
+Todas as datas e horários estão (e sempre estiveram) no Horário de Brasília (UTC -3h), e no formato ano-mês-dia.
 ### Recursos a prover
 #### Com os contatos deve-se lidar manuseando classes do Java. Os contatos devem ser armazenados em arquivos de texto não-formatado.
 - Adição de contatos.
@@ -45,8 +45,8 @@ Todas as datas e horários estão (e sempre estiveram) no Horário de Brasília 
 - Japonês (Japão).
 - Coreano (República da Coreia).
 ### A fazer antes de 2022-11-20
-- Write documentation that explains, at the very least, how to run the application locally. Write it in, at least, English (United States) and Portuguese (Brazil).
-- Translate this file's contents to both Portuguese (Brazil) and French (France).
+- Escrever documentação que explique, no mínimo, como localmente rodar a aplicação. Escrevê-la em, pelo menos, inglês (Estados Unidos) e português (Brasil).
+- Traduzir os conteúdos deste arquivo para o português (Brasil) e o francês (France).
 - Implementar adição de contatos com classes do Java. [Finalizado 2022-11-13]
 - Verificar que a listagem, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-14]
 - Verificar que a deleção, com classes do Java, de todos os contatos está funcionando corretamente; corrigí-la, se não estiver. [Finalizado 2022-11-13]
