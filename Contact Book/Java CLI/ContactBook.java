@@ -190,16 +190,29 @@ public class ContactBook {
 	public static void contactEditionInterface(int contactId, int language, Scanner globalScanner){
 		String prompt = "What would you like to edit?";
 		String options[] = {"Nothing. Go back.",
+					"Name",
 					"Phones",
 					"Emails",
 					"Places"};
 		int editing = numberMenu(prompt, options, globalScanner);
 		switch (editing){
 			case 0: return;
-			case 1: contactPhoneEditionInterface(contactId, language, globalScanner); break;
-			case 2: contactEmailEditionInterface(contactId, language, globalScanner); break;
-			case 3: contactPlaceEditionInterface(contactId, language, globalScanner); break;
+			case 1: contactNameEditionInterface(contactId, language, globalScanner); break;
+			case 2: contactPhoneEditionInterface(contactId, language, globalScanner); break;
+			case 3: contactEmailEditionInterface(contactId, language, globalScanner); break;
+			case 4: contactPlaceEditionInterface(contactId, language, globalScanner); break;
 		}
+	}
+	public static void contactNameEditionInterface(int contactId, int language, Scanner globalScanner){
+		Contact contact = contacts.get(contactId);
+		String[] options = {"No.", "Yes."};
+		
+		System.out.println("What name would you like to save?");
+		String name = globalScanner.next();
+
+		if (numberMenu("Save changes?", options, globalScanner) == 1){
+			contact.setName(name);
+		}		
 	}
 	public static void contactPhoneEditionInterface(int contactId, int language, Scanner globalScanner){
 		Contact contact = contacts.get(contactId);
@@ -218,8 +231,18 @@ public class ContactBook {
 					contact.setPhones(phones);
 					break;
 				}
-			/*case 2:	contact.setPhones(contact.getPhones()); break;
-			case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+			/*case 2: {
+					int toRemove = infoDeletionInterface(
+						contact.getPhones(),
+						"Which phone would you like to delete?",
+						language,
+						globalScanner);
+					if (toRemove > -1){
+						contact.getPhones().remove(toRemove);
+					}
+					break;
+				}
+			/*case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
 		}
 	}
 	public static void contactEmailEditionInterface(int contactId, int language, Scanner globalScanner){
@@ -260,10 +283,29 @@ public class ContactBook {
 					contact.setPlaces(places);
 					break;
 				}
-			/*case 2: contact.setPhones(contact.getPhones()); break;
-			case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+			/*case 2: REMOVAL; break;
+			case 3:	EDITION; break;*/
 		}
 	}
+	public static void infoEditionInterface(ArrayList<Info> infos, String numberMenuPrompt, String whatsTheData, int language, Scanner globalScanner){
+		
+	}
+	public static int infoDeletionInterface(ArrayList<Info> infos, String numberMenuPrompt, int language, Scanner globalScanner){
+		String[] options = new String[infos.size() + 1];
+		options[0] = "None. Cancel.";
+		for (int index = 1; index < options.length; index++)
+			options[index] = infos.get(index - 1).getData() + "\t" + infos.get(index - 1).getTag();
+		int toRemove = numberMenu(numberMenuPrompt, options, globalScanner);
+		
+		if (toRemove > 0){
+			toRemove--;
+			int confirmation = numberMenu("Are you sure you'd like to remove this info?", new String[]{"No.", "Yes."}, globalScanner);
+			if (confirmation != 1) toRemove = -1;
+			return toRemove;
+		}
+		else return -1;
+	}
+
 	public static boolean editContact(int contactId){
 		Contact contactInEdition = contacts.get(contactId);
 		contacts.put(contactId, contactInEdition);
