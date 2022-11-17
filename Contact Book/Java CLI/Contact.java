@@ -1,26 +1,21 @@
+import java.util.ArrayList;
+
 public class Contact {
 
 	// Variables
 	private int id;
-	private String name;
-	private Phone[] phones;
-	private Email[] emails;
-	private Place[] places;
+	private String name = "";
+	private ArrayList<Phone> phones = new ArrayList<>();
+	private ArrayList<Email> emails = new ArrayList<>();
+	private ArrayList<Place> places = new ArrayList<>();
 
 
 	// Constructor methods
 	public Contact(){
-		this.name = "";
-		this.phones = new Phone[0];
-		this.emails = new Email[0];
-		this.places = new Place[0];
 	}
 	
 	public Contact(String name){
 		this.name = name;
-		this.phones = new Phone[0];
-		this.emails = new Email[0];
-		this.places = new Place[0];
 	}
 
 	public boolean setName(String name){
@@ -30,25 +25,25 @@ public class Contact {
 	public String getName(){
 		return this.name;
 	}
-	public boolean setPhones(Phone[] phones){
+	public boolean setPhones(ArrayList<Phone> phones){
 		this.phones = phones;
 		return true;
 	}
-	public Phone[] getPhones(){
+	public ArrayList<Phone> getPhones(){
 		return this.phones;
 	}
-	public boolean setEmails(Email[] emails){
+	public boolean setEmails(ArrayList<Email> emails){
 		this.emails = emails;
 		return true;
 	}
-	public Email[] getEmails(){
+	public ArrayList<Email> getEmails(){
 		return this.emails;
 	}
-	public boolean setPlaces(Place[] places){
+	public boolean setPlaces(ArrayList<Place> places){
 		this.places = places;
 		return true;
 	}
-	public Place[] getPlaces(){
+	public ArrayList<Place> getPlaces(){
 		return this.places;
 	}
 }
