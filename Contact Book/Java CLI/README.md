@@ -1,5 +1,5 @@
 English (United States) version first.  
-Versão portuguesa (Brasil) mais abaixo.
+Versão portuguesa (Brasil) mais abaixo.  
 Version française (France) ci-dessous.
 
 ## English (United States)
