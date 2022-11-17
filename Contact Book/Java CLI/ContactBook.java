@@ -56,7 +56,7 @@ public class ContactBook {
 		switch (option){
 			case 0: break;
 			case 1: contactListingInterface(language, globalScanner); break;
-			case 2: contactSearchInterface(language, globalScanner); break;
+			case 2: /*contactSearchInterface(language, globalScanner);*/ break;
 			case 3: contactAdditionInterface(language, globalScanner); break;
 			case 4: allContactDeletionInterface(language, globalScanner); break;
 		}
