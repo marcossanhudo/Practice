@@ -224,26 +224,37 @@ public class ContactBook {
 		switch (choice){
 			case 0: return;
 			case 1: {
-					ArrayList<Phone> phones = new ArrayList<>();
-					phones.addAll(contact.getPhones());
-					infoAdditionInterface("Add new phone?", "What's the number?", language, globalScanner)
-						.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
-					contact.setPhones(phones);
-					break;
-				}
+				ArrayList<Phone> phones = new ArrayList<>();
+				phones.addAll(contact.getPhones());
+				infoAdditionInterface("Add new phone?", "What's the number?", language, globalScanner)
+					.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
+				contact.setPhones(phones);
+				break;
+			}
 			case 2: {
-					ArrayList<Info> infos = new ArrayList<>();
-					contact.getPhones().forEach(phone -> infos.add((Info) phone));
-					int toDelete = infoDeletionInterface(
-							infos,
-							"What place would you like to delete?",
-							language,
-							globalScanner
-						);
-					if (toDelete > -1) contact.getPhones().remove(toDelete);
-					break;
-				}
-			/*case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getPhones().forEach(phone -> infos.add((Info) phone));
+				int toDelete = infoDeletionInterface(
+					infos,
+					"What place would you like to delete?",
+					language,
+					globalScanner
+				);
+				if (toDelete > -1) contact.getPhones().remove(toDelete);
+				break;
+			}
+			case 3: {
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getPhones().forEach(phone -> infos.add((Info) phone));
+				infoEditionInterface(
+					infos,
+					"Which place would you like to edit?",
+					"Enter the new number.",
+					"Number",
+					language,
+					globalScanner);
+				break;
+			}
 		}
 	}
 	public static void contactEmailEditionInterface(int contactId, int language, Scanner globalScanner){
@@ -256,26 +267,37 @@ public class ContactBook {
 		switch (choice){
 			case 0: return;
 			case 1: {
-					ArrayList<Email> emails = new ArrayList<>();
-					emails.addAll(contact.getEmails());
-					infoAdditionInterface("Add new email?", "What's the address?", language, globalScanner)
-						.forEach(info -> emails.add(new Email(info.getData(), info.getTag())));
-					contact.setEmails(emails);
-					break;
-				}
+				ArrayList<Email> emails = new ArrayList<>();
+				emails.addAll(contact.getEmails());
+				infoAdditionInterface("Add new email?", "What's the address?", language, globalScanner)
+					.forEach(info -> emails.add(new Email(info.getData(), info.getTag())));
+				contact.setEmails(emails);
+				break;
+			}
 			case 2: {
-					ArrayList<Info> infos = new ArrayList<>();
-					contact.getEmails().forEach(email -> infos.add((Info) email));
-					int toDelete = infoDeletionInterface(
-							infos,
-							"What place would you like to delete?",
-							language,
-							globalScanner
-						);
-					if (toDelete > -1) contact.getEmails().remove(toDelete);
-					break;
-				}
-			/*case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getEmails().forEach(email -> infos.add((Info) email));
+				int toDelete = infoDeletionInterface(
+					infos,
+					"What place would you like to delete?",
+					language,
+					globalScanner
+					);
+				if (toDelete > -1) contact.getEmails().remove(toDelete);
+				break;
+			}
+			case 3:	{
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getEmails().forEach(email -> infos.add((Info) email));
+				infoEditionInterface(
+					infos,
+					"Which email would you like to edit?",
+					"Enter the new address.",
+					"Address",
+					language,
+					globalScanner);
+				break;
+			}
 		}
 	}
 	public static void contactPlaceEditionInterface(int contactId, int language, Scanner globalScanner){
@@ -288,30 +310,62 @@ public class ContactBook {
 		switch (choice){
 			case 0: return;
 			case 1: {
-					ArrayList<Place> places = new ArrayList<>();
-					places.addAll(contact.getPlaces());
-					infoAdditionInterface("Add new place?", "What's the address?", language, globalScanner)
-						.forEach(info -> places.add(new Place(info.getData(), info.getTag())));
-					contact.setPlaces(places);
-					break;
-				}
+				ArrayList<Place> places = new ArrayList<>();
+				places.addAll(contact.getPlaces());
+				infoAdditionInterface("Add new place?", "What's the address?", language, globalScanner)
+					.forEach(info -> places.add(new Place(info.getData(), info.getTag())));
+				contact.setPlaces(places);
+				break;
+			}
 			case 2: {
-					ArrayList<Info> infos = new ArrayList<>();
-					contact.getPlaces().forEach(place -> infos.add((Info) place));
-					int toDelete = infoDeletionInterface(
-							infos,
-							"What place would you like to delete?",
-							language,
-							globalScanner
-						);
-					if (toDelete > -1) contact.getPlaces().remove(toDelete);
-					break;
-				}
-			/*case 3:	EDITION; break;*/
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getPlaces().forEach(place -> infos.add((Info) place));
+				int toDelete = infoDeletionInterface(
+					infos,
+					"What place would you like to delete?",
+					language,
+					globalScanner
+					);
+				if (toDelete > -1) contact.getPlaces().remove(toDelete);
+				break;
+			}
+			case 3:	{
+				ArrayList<Info> infos = new ArrayList<>();
+				contact.getPlaces().forEach(place -> infos.add((Info) place));
+				infoEditionInterface(
+					infos,
+					"Which place would you like to edit?",
+					"Enter the new address.",
+					"Address",
+					language,
+					globalScanner);
+				break;
+			}
 		}
 	}
-	public static void infoEditionInterface(ArrayList<Info> infos, String numberMenuPrompt, String whatsTheData, int language, Scanner globalScanner){
+	public static void infoEditionInterface(ArrayList<Info> infos, String whichToEdit, String enterTheNewData, String dataName, int language, Scanner globalScanner){
 		
+		String[] options = new String[infos.size() + 1];
+		options[0] = "Nothing. Cancel.";
+		for (int index = 1; index < infos.size() + 1; index++){
+			options[index] = infos.get(index - 1).getData() + "\t(" + infos.get(index - 1).getTag() + ")";
+		}
+		int infoIndex = numberMenu(whichToEdit, options, globalScanner) - 1;
+		
+		int toChange = numberMenu("What would you like to change?", new String[]{"Nothing. Cancel.", dataName + ".", "Tag."}, globalScanner);
+		switch (toChange){
+			case 0: break;
+			case 1: {
+				System.out.println(enterTheNewData);
+				infos.get(infoIndex).setData(globalScanner.next());
+				break;
+			}
+			case 2: {
+				System.out.println("Enter the new tag.");
+				infos.get(infoIndex).setTag(globalScanner.next());
+				break;
+			}
+		}
 	}
 	public static int infoDeletionInterface(ArrayList<Info> infos, String whichToDelete, int language, Scanner globalScanner){
 		String[] options = new String[infos.size() + 1];
