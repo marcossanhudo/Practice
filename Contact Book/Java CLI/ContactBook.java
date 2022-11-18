@@ -23,14 +23,15 @@ public class ContactBook {
 
 	public static int chooseLanguage(Scanner globalScanner){
 		int userInput = -1;
-		int languageCount = 6;
+		int languageCount = 1;
+		//int languageCount = 6;
 		while (userInput < 1 || userInput > languageCount){
 			System.out.println("1 to use this application in English");
-			System.out.println("2 para usar esta aplicação em português");
+			/*System.out.println("2 para usar esta aplicação em português");
 			System.out.println("3 pour utiliser cette application en français");
 			System.out.println("4 für diese Application in Deutsch nutzen");
 			System.out.println("5 を入力するとこのアプリケーションを日本語で使える");
-			System.out.println("6 을 입력해면 이 애플리케이션을 한국어로 사용할 수 있다");
+			System.out.println("6 을 입력해면 이 애플리케이션을 한국어로 사용할 수 있다");*/
 
 			userInput = globalScanner.nextInt();
 
@@ -55,7 +56,7 @@ public class ContactBook {
 		switch (option){
 			case 0: break;
 			case 1: contactListingInterface(language, globalScanner); break;
-			case 2: contactSearchInterface(language, globalScanner); break;
+			case 2: /*contactSearchInterface(language, globalScanner);*/ break;
 			case 3: contactAdditionInterface(language, globalScanner); break;
 			case 4: allContactDeletionInterface(language, globalScanner); break;
 		}
@@ -160,12 +161,12 @@ public class ContactBook {
 		}
 		return info;
 	}
-	public static ArrayList<Info> infoEditionInterface(ArrayList<Info> infos, int language, Scanner globalScanner){
+	/*public static ArrayList<Info> infoEditionInterface(ArrayList<Info> infos, int language, Scanner globalScanner){
 		return infos;
 	}
 	public static ArrayList<Info> infoDeletionInterface(ArrayList<Info> infos, int language, Scanner globalScanner){
 		return infos;
-	}
+	}*/
 	public static boolean addContact(String name, ArrayList<Phone> phones, ArrayList<Email> emails, ArrayList<Place> places){
 		Contact newContact = new Contact(name);
 		newContact.setPhones(phones);
@@ -185,7 +186,7 @@ public class ContactBook {
 		}
 	}
 
-	public static void contactSearchInterface(int language, Scanner globalScanner){}
+	//public static void contactSearchInterface(int language, Scanner globalScanner){}
 
 	public static void contactEditionInterface(int contactId, int language, Scanner globalScanner){
 		String prompt = "What would you like to edit?";
@@ -343,8 +344,8 @@ public class ContactBook {
 			}
 		}
 	}
-	public static void infoEditionInterface(ArrayList<Info> infos, String whichToEdit, String enterTheNewData, String dataName, int language, Scanner globalScanner){
-		
+
+	public static void infoEditionInterface(ArrayList<Info> infos, String whichToEdit, String enterTheNewData, String dataName, int language, Scanner globalScanner){		
 		String[] options = new String[infos.size() + 1];
 		options[0] = "Nothing. Cancel.";
 		for (int index = 1; index < infos.size() + 1; index++){
@@ -384,7 +385,7 @@ public class ContactBook {
 		Contact contactInEdition = contacts.get(contactId);
 		contacts.put(contactId, contactInEdition);
 		return true;
-	}
+	}*/
 
 	public static void contactDeletionInterface(int contactId, int language, Scanner globalScanner){
 		String[] prompts = {"After deleting this contact, you won't be able to recover it.", generateContactTicket(contactId), "\nDelete this contact?"};
