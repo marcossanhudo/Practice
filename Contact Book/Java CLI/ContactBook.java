@@ -135,11 +135,11 @@ public class ContactBook {
 		
 		ArrayList<Email> emails = new ArrayList<>();
 		infoAdditionInterface("Would you like to add an email?", "What's the address?", language, globalScanner)
-			.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
+			.forEach(info -> emails.add(new Email(info.getData(), info.getTag())));
 		
 		ArrayList<Place> places = new ArrayList<>();
 		infoAdditionInterface("Would you like to add a place?", "What's the address?", language, globalScanner)
-			.forEach(info -> phones.add(new Phone(info.getData(), info.getTag())));
+			.forEach(info -> places.add(new Place(info.getData(), info.getTag())));
 
 		if (addContact(name, phones, emails, places))
 			System.out.println("\nYour new contact was successfully added to your contact list.");
@@ -231,15 +231,16 @@ public class ContactBook {
 					contact.setPhones(phones);
 					break;
 				}
-			/*case 2: {
-					int toRemove = infoDeletionInterface(
-						contact.getPhones(),
-						"Which phone would you like to delete?",
-						language,
-						globalScanner);
-					if (toRemove > -1){
-						contact.getPhones().remove(toRemove);
-					}
+			case 2: {
+					ArrayList<Info> infos = new ArrayList<>();
+					contact.getPhones().forEach(phone -> infos.add((Info) phone));
+					int toDelete = infoDeletionInterface(
+							infos,
+							"What place would you like to delete?",
+							language,
+							globalScanner
+						);
+					if (toDelete > -1) contact.getPhones().remove(toDelete);
 					break;
 				}
 			/*case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
@@ -262,8 +263,19 @@ public class ContactBook {
 					contact.setEmails(emails);
 					break;
 				}
-			/*case 2: contact.setPhones(contact.getPhones()); break;
-			case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
+			case 2: {
+					ArrayList<Info> infos = new ArrayList<>();
+					contact.getEmails().forEach(email -> infos.add((Info) email));
+					int toDelete = infoDeletionInterface(
+							infos,
+							"What place would you like to delete?",
+							language,
+							globalScanner
+						);
+					if (toDelete > -1) contact.getEmails().remove(toDelete);
+					break;
+				}
+			/*case 3:	contact.setPhones(contact.getPhones().add(phoneAdditionInterface(language, globalScanner)); break;*/
 		}
 	}
 	public static void contactPlaceEditionInterface(int contactId, int language, Scanner globalScanner){
@@ -283,27 +295,35 @@ public class ContactBook {
 					contact.setPlaces(places);
 					break;
 				}
-			/*case 2: REMOVAL; break;
-			case 3:	EDITION; break;*/
+			case 2: {
+					ArrayList<Info> infos = new ArrayList<>();
+					contact.getPlaces().forEach(place -> infos.add((Info) place));
+					int toDelete = infoDeletionInterface(
+							infos,
+							"What place would you like to delete?",
+							language,
+							globalScanner
+						);
+					if (toDelete > -1) contact.getPlaces().remove(toDelete);
+					break;
+				}
+			/*case 3:	EDITION; break;*/
 		}
 	}
 	public static void infoEditionInterface(ArrayList<Info> infos, String numberMenuPrompt, String whatsTheData, int language, Scanner globalScanner){
 		
 	}
-	public static int infoDeletionInterface(ArrayList<Info> infos, String numberMenuPrompt, int language, Scanner globalScanner){
+	public static int infoDeletionInterface(ArrayList<Info> infos, String whichToDelete, int language, Scanner globalScanner){
 		String[] options = new String[infos.size() + 1];
 		options[0] = "None. Cancel.";
-		for (int index = 1; index < options.length; index++)
-			options[index] = infos.get(index - 1).getData() + "\t" + infos.get(index - 1).getTag();
-		int toRemove = numberMenu(numberMenuPrompt, options, globalScanner);
-		
-		if (toRemove > 0){
-			toRemove--;
-			int confirmation = numberMenu("Are you sure you'd like to remove this info?", new String[]{"No.", "Yes."}, globalScanner);
-			if (confirmation != 1) toRemove = -1;
-			return toRemove;
+		for (int index = 1; index < infos.size() + 1; index++){
+			options[index] = infos.get(index - 1).getData() + "\t(" + infos.get(index - 1).getTag() + ")";
 		}
-		else return -1;
+		int choice = numberMenu(whichToDelete, options, globalScanner);
+		int confirmation = numberMenu("Are you sure you'd like to delete this info?", new String[]{"No.", "Yes."}, globalScanner);
+		if (confirmation != 1) choice = 0;
+		choice--;
+		return choice;
 	}
 
 	public static boolean editContact(int contactId){
