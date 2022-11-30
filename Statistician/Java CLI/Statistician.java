@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Statistician {
 
 	public static double[] data = new double[0];
@@ -12,6 +14,8 @@ public class Statistician {
 		System.out.println("\tLowest: " + lowest());
 		System.out.println("Average: " + average());
 		System.out.println("Mean: " + mean());
+		System.out.println("Mode: " + mode());
+		//System.out.println("Standard deviation: ");
 	}
 
 	public static void parseArguments(String args[]){
@@ -68,12 +72,25 @@ public class Statistician {
 		return numerator / denominator;
 	}
 
-	/*public static double mode(){
+	public static double mode(){
 		return mode(data);
 	}
-	public static double mode(){
-	
-	}*/
+	public static double mode(double[] set){
+		int setLength = set.length;
+		HashMap<Double, Integer> quantities = new HashMap<>();
+
+		for (int index = 0; index < setLength; index++){
+			if (quantities.containsKey(new Double(set[index])))
+				quantities.put(set[index], quantities.get(new Double(set[index])) + 1);
+			else quantities.put(set[index], 1);
+		}
+		
+		double mode = set[0];
+		for (double datum: set)
+			if (quantities.get(datum) > quantities.get(mode)) mode = datum;
+		
+		return mode;
+	}
 
 	public static double mean(){
 		return mean(data);
